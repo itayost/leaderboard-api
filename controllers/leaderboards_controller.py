@@ -130,7 +130,10 @@ def get_leaderboards():
     leaderboards_collection = db['leaderboards']
     leaderboards = list(leaderboards_collection.find({'app_id': app['_id']}))
 
-    return jsonify(leaderboards), 200
+    return jsonify({
+        'leaderboards': leaderboards,
+        'total': len(leaderboards)
+    }), 200
 
 
 # 3. Get leaderboard by ID
