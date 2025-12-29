@@ -88,7 +88,7 @@ def register_user():
     users_collection = db['users']
     existing_user = users_collection.find_one({'email': email})
     if existing_user:
-        return jsonify({'error': 'Email already registered'}), 400
+        return jsonify({'error': 'Email already registered'}), 409
 
     # Create user
     user_id = str(uuid.uuid4())
