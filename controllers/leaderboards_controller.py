@@ -67,6 +67,16 @@ def create_leaderboard():
     if sort_order not in ['asc', 'desc']:
         return jsonify({'error': 'sort_order must be "asc" or "desc"'}), 400
 
+    leaderboards_collection = db['leaderboards']
+
+    # Check for duplicate name within the same app
+    existing = leaderboards_collection.find_one({
+        'app_id': app['_id'],
+        'name': data['name']
+    })
+    if existing:
+        return jsonify({'error': 'A leaderboard with this name already exists'}), 409
+
     leaderboard_item = {
         "_id": str(uuid.uuid4()),
         "app_id": app['_id'],
@@ -75,7 +85,6 @@ def create_leaderboard():
         "created_at": datetime.now().isoformat()
     }
 
-    leaderboards_collection = db['leaderboards']
     leaderboards_collection.insert_one(leaderboard_item)
 
     return jsonify({
