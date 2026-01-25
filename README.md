@@ -22,7 +22,7 @@ A RESTful API for managing game leaderboards, players, and scores.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/leaderboard-api.git
+git clone https://github.com/itayost/leaderboard-api.git
 cd leaderboard-api
 ```
 
